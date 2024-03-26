@@ -1,11 +1,8 @@
-const names= ['Learning React.Js is awesome', 'React.Js is Fun', 'Learning React.Js is very easy'];
-
-function Post(){
-    const chooseName = Math.random() > 0.7 ? names[0] : (Math.random() > 0.4 ? names[1]: names[2]);
+function Post(Probs){
     return (
     <div>
-        <p>{chooseName}</p>
-        
+        <p>{Probs.author}</p>
+        <p>{Probs.body}</p>
     </div>
     );
 }

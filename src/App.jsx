@@ -1,6 +1,12 @@
 import Post from './components/Post';
 function App() {
-  return <Post />; 
+  return (
+    <main>
+        <Post author= "Michael" body= "React is great"/>
+        <Post author="Jhon" body = "React is awesome"/>
+    </main>
+  ); 
+
 //Componats names here must start with uppercase character(custom coponent)
 // elements that start with a lowercase are considered as a efault element and react will try to loook for a
 //HTML element withthat name..
