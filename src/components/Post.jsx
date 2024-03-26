@@ -1,10 +1,11 @@
-const names= ['Maxmillion', 'Manial'];
+const names= ['Learning React.Js is awesome', 'React.Js is Fun', 'Learning React.Js is very easy'];
 
 function Post(){
+    const chooseName = Math.random() > 0.7 ? names[0] : (Math.random() > 0.4 ? names[1]: names[2]);
     return (
     <div>
-        <p> Maximilian</p>
-        <p>Leanring React.js is awesome!</p>
+        <p>{chooseName}</p>
+        
     </div>
     );
 }
