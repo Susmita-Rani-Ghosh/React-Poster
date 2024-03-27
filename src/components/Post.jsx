@@ -1,9 +1,13 @@
+import classes from './Post.module.css';
+//adding .module garenties a unique fine name and avoid style clashes.
+// adding classes From './post' is doing the work of assigning unique names to the css elements in the file
+
 function Post(Probs){
     return (
-    <div>
-        <p>{Probs.author}</p>
-        <p>{Probs.body}</p>
-    </div>
+    <li className= {classes.post}> 
+        <p className= {classes.author}>{Probs.author}</p>
+        <p className= {classes.text}>{Probs.body}</p>
+    </li>
     );
 }
 
