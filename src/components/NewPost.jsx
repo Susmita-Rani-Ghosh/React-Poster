@@ -1,35 +1,20 @@
-import {useState} from 'react'; // a react hook.  all useXYZ are react hooks
+//import {useState} from 'react'; // a react hook.  all useXYZ are react hooks
 import classes from './NewPost.module.css';
 
 //in this newPost we want to listen to keyStores in the Text area
 //To do this we will set up an event listener
-function NewPost() {
-    const [enteredBody, setnteredBody] = useState('');  //regested a state
-
-
-
-    // in Vallina javascript- Event Listener looks like this
-    // document.querySelector('textarea').addEventListener('change', function () {});
-
-    // in React we can do this by adding a Property to the area where we want to listen.
-        //e.g.: onKeyDown or onChnage
-    // Function to be used for onChnage event lister
-
-    //update state
-    function changeBodyHandler(event) { //this function will be executed evenever a key is pressed on the event listener.
-        setnteredBody(event.target.value);
-    }
-
+function NewPost(props) {
+    //Lifting state up
     return(
         <form className={classes.form}>
             <p>
                 <label htmlFor="body">Text</label>
-                <textarea  id="body" required rows={3} onChange={changeBodyHandler}/>
+                <textarea  id="body" required rows={3} onChange={props.onBodyChange} /> 
             </p>
-            <p>{enteredBody}</p>
+            
             <p>
                 <label htmlFor="name">Your name</label>
-                <input type="text" id ="name" required />
+                <input type="text" id ="name" required onChange = {props.onAuthorChange}/>
             </p>
         </form>
     );
@@ -57,3 +42,12 @@ As a result we have a new value of the state variable in the return statement.
 
 As a result our NewPost() function will be executed once again and 
     **Only the the things that are different will be re-rendered in the UI.**/
+
+
+    //const [enteredBody, setnteredBody] = useState('');  //regested a state
+    // in Vallina javascript- Event Listener looks like this
+    // document.querySelector('textarea').addEventListener('change', function () {});
+
+    // in React we can do this by adding a Property to the area where we want to listen.
+        //e.g.: onKeyDown or onChnage
+    // Function to be used for onChnage event lister
