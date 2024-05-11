@@ -1,3 +1,4 @@
+import Modal from './Modal.jsx';
 import {useState} from 'react';
 import classes from './PostList.module.css';
 import Post from './Post';
@@ -16,7 +17,11 @@ function PostList() {
     }
     return (
         <>
-        <NewPost onBodyChange = {bodyChnageHandler} onAuthorChange = {authorChnageHandler}/>
+        {/* adding Overlay using Modal.jsx */}
+        {/* the children props reffere to the conant that is wrapped by the opening and closing tag of custom componant(Modal) -->newPost */}
+        <Modal>
+            <NewPost onBodyChange = {bodyChnageHandler} onAuthorChange = {authorChnageHandler}/>
+        </Modal>
         <ul className={classes.Postlist}>
             
                 <Post author={enteredAuthor} body={enteredBody}/>
