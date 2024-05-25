@@ -4,10 +4,11 @@ import classes from './PostList.module.css';
 import Post from './Post';
 import NewPost from './NewPost';
 
-function PostList() {
+
+function PostList({isPosting, onStopPosting}) {
     const [enteredBody, setEnteredBody] = useState('');
     const [enteredAuthor, setEnteredAuthor] = useState(''); //state variable to store the author name
-    const [modalIsVisible, setModalIsVisible] = useState(true); //default is modalIsVisitble = true
+
 
     function bodyChnageHandler(event){
         setEnteredBody(event.target.value);
@@ -17,19 +18,20 @@ function PostList() {
         setEnteredAuthor(event.target.value);
     }
 
-    function hideModalHandler() {
-        setModalIsVisible(false);
-    }
+
     return (
         <>
             {/* adding Overlay using Modal.jsx */}
             {/* the children props reffere to the conant that is wrapped by the opening and closing tag of custom componant(Modal) -->newPost */}
             {/* A ternary expression : same as modelIsVisible == ture*/}
-            {modalIsVisible ? (
-            <Modal onClose= {hideModalHandler}>
-                <NewPost onBodyChange = {bodyChnageHandler} onAuthorChange = {authorChnageHandler}/>
-            </Modal> 
-            ) : false} 
+            {isPosting && (
+                <Modal onClose= {onStopPosting}>
+                    <NewPost 
+                        onBodyChange = {bodyChnageHandler} 
+                        onAuthorChange = {authorChnageHandler}
+                    />
+                </Modal> 
+            ) } 
             
             <ul className={classes.Postlist}>
                 
