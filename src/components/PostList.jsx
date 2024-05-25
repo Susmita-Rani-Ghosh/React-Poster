@@ -29,6 +29,7 @@ function PostList({isPosting, onStopPosting}) {
                     <NewPost 
                         onBodyChange = {bodyChnageHandler} 
                         onAuthorChange = {authorChnageHandler}
+                        onCalcel = {onStopPosting}
                     />
                 </Modal> 
             ) } 

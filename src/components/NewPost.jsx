@@ -3,18 +3,22 @@ import classes from './NewPost.module.css';
 
 //in this newPost we want to listen to keyStores in the Text area
 //To do this we will set up an event listener
-function NewPost(props) {
+function NewPost({onBodyChange, onAuthorChange, onCalcel}){
     //Lifting state up
     return(
         <form className={classes.form}>
             <p>
                 <label htmlFor="body">Text</label>
-                <textarea  id="body" required rows={3} onChange={props.onBodyChange} /> 
+                <textarea  id="body" required rows={3} onChange={onBodyChange} /> 
             </p>
             
             <p>
                 <label htmlFor="name">Your name</label>
-                <input type="text" id ="name" required onChange = {props.onAuthorChange}/>
+                <input type="text" id ="name" required onChange = {onAuthorChange}/>
+            </p>
+            <p className = {classes.actions}>
+                <button type = "button" onClick={onCalcel}>Cancle</button>
+                <button>Submit</button>
             </p>
         </form>
     );
