@@ -6,6 +6,15 @@ import NewPost from './NewPost';
 
 
 function PostList({isPosting, onStopPosting}) {
+    const [posts, setPost]= useState([]);
+    // this list must be edited whenever the user adds a new post
+    //here is the function for adding a new post
+    function addPostHandler(postData) {
+        setPost((existingPost) => [postData, ...existingPost]); //... = spread operator. used to spread any existing array of posts in our new post. So that any existing post isn't lost
+        //postData is the new post we want to add
+        //if new state depends on old state then you should be using the function from to update the state value
+        // newPost is the 1st element of the array
+    }
     return (
         <>
             {/* adding Overlay using Modal.jsx */}
@@ -15,12 +24,20 @@ function PostList({isPosting, onStopPosting}) {
                 <Modal onClose= {onStopPosting}>
                     <NewPost 
                         onCalcel = {onStopPosting}
+                        onAddPost = {addPostHandler}
                     />
                 </Modal> 
             ) } 
             
-            <ul className={classes.Postlist}>
-                    <Post author= "Jhon" body= "React is Fun!"/>                
+            <ul className={classes.posts}>
+                {posts.map((post) => <Post key = {post.body} author = {post.author} body = {post.body}/>)}
+
+                {/* react requires that each elemnt that we add to the list must have a unique key property.
+                It makes it easier for react to update the dom.
+                we can use the key={post.body} to give each post a unique key.(for now) */}
+
+                {/*  every single posts is maped in to Post JSX element. 
+                all element of the new posts was transfroms into a new value on Post*/}
             </ul>
         </>
     );

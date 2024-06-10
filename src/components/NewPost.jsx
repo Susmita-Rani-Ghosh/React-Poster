@@ -4,7 +4,7 @@ import {useState} from 'react';
 
 //in this newPost we want to listen to keyStores in the Text area
 //To do this we will set up an event listener
-function NewPost({ onCalcel}){
+function NewPost({ onCalcel, onAddPost}){
     const [enteredBody, setEnteredBody] = useState('');
     const [enteredAuthor, setEnteredAuthor] = useState(''); //state variable to store the author name
 
@@ -24,7 +24,8 @@ function NewPost({ onCalcel}){
             body: enteredBody,
             author: enteredAuthor
         };
-        console.log(postData)
+        onAddPost(postData); //to add the new post to the list of posts
+        
         onCalcel();// to close the modal on submit. 
         //oncancle is a prop that receives a function as a value hence we can call it.
     }// we could also show client side velidation here and 
