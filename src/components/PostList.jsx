@@ -28,8 +28,7 @@ function PostList({isPosting, onStopPosting}) {
                     />
                 </Modal> 
             ) } 
-            
-            <ul className={classes.posts}>
+            {posts.length >0 && (<ul className={classes.posts}>
                 {posts.map((post) => <Post key = {post.body} author = {post.author} body = {post.body}/>)}
 
                 {/* react requires that each elemnt that we add to the list must have a unique key property.
@@ -38,7 +37,12 @@ function PostList({isPosting, onStopPosting}) {
 
                 {/*  every single posts is maped in to Post JSX element. 
                 all element of the new posts was transfroms into a new value on Post*/}
-            </ul>
+            </ul>)}
+            {posts.length == 0 && (
+                <div style = {{textAlign: 'center', color: 'while'}}>
+                    <h2>There is not posts yet.</h2>
+                    <p>Start adding some!</p>
+                </div>)}
         </>
     );
 }
