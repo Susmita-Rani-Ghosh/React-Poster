@@ -1,20 +1,46 @@
 //import {useState} from 'react'; // a react hook.  all useXYZ are react hooks
 import classes from './NewPost.module.css';
+import {useState} from 'react';
 
 //in this newPost we want to listen to keyStores in the Text area
 //To do this we will set up an event listener
-function NewPost({onBodyChange, onAuthorChange, onCalcel}){
+function NewPost({ onCalcel}){
+    const [enteredBody, setEnteredBody] = useState('');
+    const [enteredAuthor, setEnteredAuthor] = useState(''); //state variable to store the author name
+
+
+    function bodyChnageHandler(event){
+        setEnteredBody(event.target.value);
+    }
+
+    function authorChnageHandler(event){
+        setEnteredAuthor(event.target.value);
+    }
+    // function for when the form is submitted
+    function submitHandler(event){
+        event.preventDefault(); //this prevents the browser default of generating and sending and http 
+        //request to the server
+        const postData  = {
+            body: enteredBody,
+            author: enteredAuthor
+        };
+        console.log(postData)
+        onCalcel();// to close the modal on submit. 
+        //oncancle is a prop that receives a function as a value hence we can call it.
+    }// we could also show client side velidation here and 
+    //update some state to show error message if invalid data was entered.
+
     //Lifting state up
     return(
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit= {submitHandler}> 
             <p>
                 <label htmlFor="body">Text</label>
-                <textarea  id="body" required rows={3} onChange={onBodyChange} /> 
+                <textarea  id="body" required rows={3} onChange={bodyChnageHandler} /> 
             </p>
             
             <p>
                 <label htmlFor="name">Your name</label>
-                <input type="text" id ="name" required onChange = {onAuthorChange}/>
+                <input type="text" id ="name" required onChange = {authorChnageHandler}/>
             </p>
             <p className = {classes.actions}>
                 <button type = "button" onClick={onCalcel}>Cancle</button>
@@ -26,6 +52,8 @@ function NewPost({onBodyChange, onAuthorChange, onCalcel}){
 
 export default NewPost;
 
+//onSubmit event listner on form element:
+///*to listen to the default submit event*/
 //React Event Listener notes:
 /*By default the FUnction NewPost is only executed once. Which means react only keeps a snapshot of our enterBody 
 value in the reurn statement at the time of first render.

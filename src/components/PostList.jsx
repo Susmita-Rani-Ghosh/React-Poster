@@ -6,19 +6,6 @@ import NewPost from './NewPost';
 
 
 function PostList({isPosting, onStopPosting}) {
-    const [enteredBody, setEnteredBody] = useState('');
-    const [enteredAuthor, setEnteredAuthor] = useState(''); //state variable to store the author name
-
-
-    function bodyChnageHandler(event){
-        setEnteredBody(event.target.value);
-    }
-
-    function authorChnageHandler(event){
-        setEnteredAuthor(event.target.value);
-    }
-
-
     return (
         <>
             {/* adding Overlay using Modal.jsx */}
@@ -27,25 +14,20 @@ function PostList({isPosting, onStopPosting}) {
             {isPosting && (
                 <Modal onClose= {onStopPosting}>
                     <NewPost 
-                        onBodyChange = {bodyChnageHandler} 
-                        onAuthorChange = {authorChnageHandler}
                         onCalcel = {onStopPosting}
                     />
                 </Modal> 
             ) } 
             
             <ul className={classes.Postlist}>
-                
-                    <Post author={enteredAuthor} body={enteredBody}/>
-                    <Post author= "Jhon" body= "React is Fun!"/>
-                
+                    <Post author= "Jhon" body= "React is Fun!"/>                
             </ul>
         </>
     );
 }
 
 export default PostList;
-
+// to submit a modal , i want to close the modal and i want to sve the information insurted on the modal into A NewPost(By adding them to my lsit of posts)
 // Lifiting the State Up. If we have state that's maniputed in componat A but needed in componant B, we should lift up the state 1 componant that that has access to both componants. here that 1 Majic state Is PostList. -> NewPost and Post
 
 
