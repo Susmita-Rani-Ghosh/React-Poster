@@ -1,19 +1,60 @@
 import Modal from './Modal.jsx';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import classes from './PostList.module.css';
 import Post from './Post';
 import NewPost from './NewPost';
 
 
 function PostList({isPosting, onStopPosting}) {
+    // fetch('http://localhost:8080/posts').then(response => response.json()).then(data => {
+    //     setPosts(data.posts);
+    // } );
+     //sent a get request to get all the previous posts
+    // Now we have to update our posts here whenever we geta  response from the server
+
+//the code above is a common problem in react . it causes an infinite loop. bcz when we update the satte the componant
+//function(PostList) get's executed again to update the UI. however if the PostList function get's executed again the 
+// the fetch request get's send again. Hence this causes an infinite loop. 
+//             **** It has another Hook that we can Use . useEffect hook *******
+//     useEffect wraps side effects in react.
     const [posts, setPost]= useState([]);
     // this list must be edited whenever the user adds a new post
     //here is the function for adding a new post
+
+    useEffect(() => {
+        async function fetchPosts() {
+            const response = await fetch('http://localhost:8080/posts')
+            const resData = await response.json();
+            setPost(resData.posts); //posts get's updated here
+        } 
+        //this extra function is created because useEffect takes a function that should not return a promise 
+        //itself but should instread return nothing or a cleanup function.
+
+        fetchPosts();
+
+    }, []); 
+    // useEffect does not return anything, it h=takes a function {}, and an array[]
+
+    //        *** Why is useEffect used? and why isn't it causing an infinite loop?***
+    // useEffect function doesn't get executed all the time, it only get's executed when the dependencies defined in the array changes.
+    // if no dependencies are defined then react will only execute it once when the componant PostsList is frist rendered. it's never called again 
     function addPostHandler(postData) {
+
+        fetch('http://localhost:8080/posts', {
+            method: 'POST', //by default it is GET. so we have to chnage it to POST
+            body: JSON.stringify(postData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }); 
+        //we use a /posts extension because in our backend code we have a '/posts' where we expect a .post request if we wan tot store the data.Modal
+        //we send a request to this url or domail to sent data
+
         setPost((existingPost) => [postData, ...existingPost]); //... = spread operator. used to spread any existing array of posts in our new post. So that any existing post isn't lost
         //postData is the new post we want to add
         //if new state depends on old state then you should be using the function from to update the state value
         // newPost is the 1st element of the array
+
     }
     return (
         <>
